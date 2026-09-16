@@ -388,6 +388,16 @@
     margin: 0;
   }
 
+  .screening-when{
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.85rem;
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .screening-when svg{ width: 15px; height: 15px; flex-shrink: 0; color: var(--gold); }
+
   .card-countdown{
     display:flex;
     gap: 0.5rem;
@@ -859,6 +869,12 @@
   ];
 
   var STAR_SVG = '<svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.6 5.6 6.1.6-4.6 4.1 1.4 6-5.5-3.2-5.5 3.2 1.4-6-4.6-4.1 6.1-.6z"/></svg>';
+  var CLOCK_SVG = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="7.5"/><path d="M10 6v4l2.6 1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  function formatScreeningDate(iso){
+    var d = new Date(iso);
+    return d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+  }
 
   // ---------------------------------------------------------------
   // Render the four movie cards from SCREENINGS
@@ -880,6 +896,7 @@
           '<span class="imdb-badge">' + STAR_SVG + 'IMDb ' + s.imdb + '</span>' +
         '</div>' +
         '<p class="short-description">' + s.description + '</p>' +
+        '<div class="screening-when">' + CLOCK_SVG + '<span>' + formatScreeningDate(s.target) + ' · ' + s.time + '</span></div>' +
         '<div class="card-countdown" data-target="' + s.target + '">' +
           '<div class="cd-unit"><span class="cd-value" data-u="d">00</span><span class="cd-label">Days</span></div>' +
           '<div class="cd-unit"><span class="cd-value" data-u="h">00</span><span class="cd-label">Hrs</span></div>' +
@@ -887,7 +904,7 @@
           '<div class="cd-unit"><span class="cd-value" data-u="s">00</span><span class="cd-label">Sec</span></div>' +
         '</div>' +
         '<div class="card-footer">' +
-          '<span><strong>' + s.hall + '</strong> · ' + s.time + '</span>' +
+          '<span><strong>' + s.hall + '</strong></span>' +
         '</div>' +
       '</div>' +
       '<div class="sprocket-row"></div>';
